@@ -501,12 +501,9 @@ function HomeLanding({ onEnterManagement }) {
     resize()
     draw()
 
-    if (video && canvas.captureStream) {
-      stream = canvas.captureStream(30)
-      video.srcObject = stream
+    if (video) {
+      video.srcObject = null
       video.play().catch(() => {})
-    } else if (video) {
-      video.style.display = 'none'
     }
 
     window.addEventListener('resize', resize)
@@ -641,7 +638,17 @@ function HomeLanding({ onEnterManagement }) {
       )}
 
       <section className="home-hero">
-        <video ref={videoRef} className="home-hero-video" muted playsInline autoPlay loop aria-label="Ace Bio Pharm background video" />
+        <video
+          ref={videoRef}
+          className="home-hero-video"
+          src="/hero-video.mp4"
+          muted
+          playsInline
+          autoPlay
+          loop
+          preload="auto"
+          aria-label="Ace Bio Pharm background video"
+        />
         <canvas ref={canvasRef} className="home-hero-canvas" aria-hidden="true" />
         <div className="home-hero-shade" />
         <div className="home-hero-message" aria-label="더 건강한 미래를 만듭니다. 고객 감동을 실현하는 에이스바이오팜">
