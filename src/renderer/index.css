@@ -904,7 +904,7 @@ body {
 
 .solution-section {
   position: relative;
-  min-height: 178vh;
+  min-height: 205vh;
   padding: 0 clamp(22px, 2.6vw, 46px) 76px;
   background: #f5f7f6;
   color: #07151d;

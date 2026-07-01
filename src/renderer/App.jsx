@@ -452,8 +452,8 @@ function HomeLanding({ onEnterManagement }) {
     if (!scroller) return
 
     const handleScroll = () => {
-      const start = scroller.clientHeight * 0.92
-      const distance = scroller.clientHeight * 0.58
+      const start = scroller.clientHeight * 1.12
+      const distance = scroller.clientHeight * 0.72
       const progress = Math.max(0, Math.min(1, (scroller.scrollTop - start) / distance))
       setSolutionProgress(progress)
       if (progress > 0.72) {
