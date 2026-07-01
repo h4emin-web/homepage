@@ -702,10 +702,10 @@ body {
   align-items: center;
   padding: 120px clamp(22px, 7vw, 96px) 90px;
   overflow: hidden;
+  background: #061620;
 }
 
 .home-hero-video,
-.home-hero-canvas,
 .home-hero-shade {
   position: absolute;
   inset: 0;
@@ -716,14 +716,6 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: 1;
-}
-
-.home-hero-canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-  pointer-events: none;
 }
 
 .home-hero-shade {
@@ -761,8 +753,8 @@ body {
   gap: clamp(12px, 1.5vw, 24px);
   opacity: 0;
   transform: translateY(22px);
-  animation: hero-line-cycle 9s cubic-bezier(0.28, 0.76, 0.28, 1) infinite;
-  animation-delay: calc(var(--line-index) * 3s);
+  animation: hero-line-cycle var(--hero-cycle-duration, 10.4s) cubic-bezier(0.28, 0.76, 0.28, 1) infinite;
+  animation-delay: calc(var(--line-index) * var(--hero-line-gap, 3.466s));
 }
 
 .home-hero-word {
@@ -775,22 +767,22 @@ body {
   text-shadow: 0 8px 28px rgba(0, 0, 0, 0.38);
   opacity: 0;
   transform: translateY(30px) scale(0.975);
-  animation: hero-word-pop 9s cubic-bezier(0.26, 0.78, 0.26, 1) infinite;
-  animation-delay: calc(var(--line-index) * 3s + var(--word-index) * 0.42s);
+  animation: hero-word-pop var(--hero-cycle-duration, 10.4s) cubic-bezier(0.26, 0.78, 0.26, 1) infinite;
+  animation-delay: calc(var(--line-index) * var(--hero-line-gap, 3.466s) + var(--word-index) * 0.22s);
 }
 
 @keyframes hero-line-cycle {
   0%,
-  6% {
+  4% {
     opacity: 0;
     transform: translateY(18px);
   }
-  16%,
-  35% {
+  12%,
+  28% {
     opacity: 1;
     transform: translateY(0);
   }
-  42%,
+  33%,
   100% {
     opacity: 0;
     transform: translateY(-10px);
@@ -799,20 +791,20 @@ body {
 
 @keyframes hero-word-pop {
   0%,
-  8% {
+  3% {
     opacity: 0;
     transform: translateY(30px) scale(0.975);
   }
-  17% {
+  9% {
     opacity: 1;
     transform: translateY(-3px) scale(1.006);
   }
-  23%,
-  36% {
+  12%,
+  24% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-  43%,
+  26.5%,
   100% {
     opacity: 0;
     transform: translateY(-10px) scale(0.992);

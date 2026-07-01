@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage } = require('electron')
+﻿const { app, BrowserWindow, Tray, Menu, nativeImage } = require('electron')
 const path = require('path')
 
 let mainWindow
@@ -16,7 +16,7 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
     },
-    title: '업무 관리',
+    title: '에이스바이오팜',
     show: false,
   })
 
@@ -71,3 +71,4 @@ app.whenReady().then(() => {
 app.on('window-all-closed', (e) => {
   e.preventDefault()
 })
+

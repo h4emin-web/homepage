@@ -135,7 +135,8 @@ const FOOTER_NAV_GROUPS = [
 function HomeLanding({ onEnterManagement }) {
   const scrollRef = useRef(null)
   const videoRef = useRef(null)
-  const canvasRef = useRef(null)
+  const [heroCycleDuration, setHeroCycleDuration] = useState(10.4)
+  const [heroAnimationKey, setHeroAnimationKey] = useState(0)
   const [solutionProgress, setSolutionProgress] = useState(0)
   const [solutionLocked, setSolutionLocked] = useState(false)
   const [languageOpen, setLanguageOpen] = useState(false)
@@ -170,6 +171,15 @@ function HomeLanding({ onEnterManagement }) {
     setSiteSearch('')
   }
 
+  const syncHeroVideoTiming = (event) => {
+    const video = event.currentTarget
+    const duration = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : 10.4
+    setHeroCycleDuration(duration)
+    video.currentTime = 0
+    setHeroAnimationKey((key) => key + 1)
+    video.play().catch(() => {})
+  }
+
   useEffect(() => {
     const scroller = scrollRef.current
     if (!scroller) return
@@ -187,331 +197,6 @@ function HomeLanding({ onEnterManagement }) {
     handleScroll()
     scroller.addEventListener('scroll', handleScroll, { passive: true })
     return () => scroller.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    const video = videoRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    let animationFrame = 0
-    let stream = null
-    let width = 0
-    let height = 0
-    const particleSeeds = Array.from({ length: 48 }, (_, index) => ({
-      x: Math.random(),
-      y: Math.random(),
-      phase: index * 0.37,
-      radius: 1.5 + Math.random() * 3.4,
-    }))
-
-    const resize = () => {
-      const ratio = window.devicePixelRatio || 1
-      width = Math.max(1280, window.innerWidth)
-      height = Math.max(720, window.innerHeight)
-      canvas.width = width * ratio
-      canvas.height = height * ratio
-      canvas.style.width = `${width}px`
-      canvas.style.height = `${height}px`
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
-    }
-
-    const ease = (value) => value * value * (3 - 2 * value)
-    const sceneOpacity = (progress, start, end) => {
-      const fade = 0.08
-      if (progress < start - fade || progress > end + fade) return 0
-      if (progress < start) return ease((progress - start + fade) / fade)
-      if (progress > end) return ease((end + fade - progress) / fade)
-      return 1
-    }
-
-    const roundedRect = (x, y, w, h, r) => {
-      ctx.beginPath()
-      ctx.moveTo(x + r, y)
-      ctx.lineTo(x + w - r, y)
-      ctx.quadraticCurveTo(x + w, y, x + w, y + r)
-      ctx.lineTo(x + w, y + h - r)
-      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h)
-      ctx.lineTo(x + r, y + h)
-      ctx.quadraticCurveTo(x, y + h, x, y + h - r)
-      ctx.lineTo(x, y + r)
-      ctx.quadraticCurveTo(x, y, x + r, y)
-      ctx.closePath()
-    }
-
-    const drawBase = (time) => {
-      const gradient = ctx.createLinearGradient(0, 0, width, height)
-      gradient.addColorStop(0, '#061620')
-      gradient.addColorStop(0.52, '#0f3e4e')
-      gradient.addColorStop(1, '#1b3426')
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, width, height)
-
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.055)'
-      ctx.lineWidth = 1
-      const gap = 86
-      const offset = (time * 0.015) % gap
-      for (let x = -gap; x < width + gap; x += gap) {
-        ctx.beginPath()
-        ctx.moveTo(x + offset, 0)
-        ctx.lineTo(x - width * 0.1 + offset, height)
-        ctx.stroke()
-      }
-      for (let y = -gap; y < height + gap; y += gap) {
-        ctx.beginPath()
-        ctx.moveTo(0, y + offset)
-        ctx.lineTo(width, y - height * 0.06 + offset)
-        ctx.stroke()
-      }
-
-      particleSeeds.forEach((particle, index) => {
-        const px = ((particle.x * width + time * 0.018 * (index % 5 + 1)) % (width + 120)) - 60
-        const py = particle.y * height + Math.sin(time * 0.001 + particle.phase) * 32
-        ctx.beginPath()
-        ctx.fillStyle = index % 3 === 0 ? 'rgba(137, 222, 255, 0.18)' : 'rgba(255, 255, 255, 0.12)'
-        ctx.arc(px, py, particle.radius, 0, Math.PI * 2)
-        ctx.fill()
-      })
-    }
-
-    const drawWorker = (x, y, scale, tone = '#e5ba94') => {
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.94)'
-      roundedRect(x - 16 * scale, y - 4 * scale, 32 * scale, 54 * scale, 10 * scale)
-      ctx.fill()
-      ctx.fillStyle = tone
-      ctx.beginPath()
-      ctx.arc(x, y - 19 * scale, 12 * scale, 0, Math.PI * 2)
-      ctx.fill()
-      ctx.fillStyle = '#f8fbff'
-      ctx.fillRect(x - 15 * scale, y - 34 * scale, 30 * scale, 10 * scale)
-      ctx.fillStyle = 'rgba(14, 46, 60, 0.34)'
-      ctx.fillRect(x - 10 * scale, y - 15 * scale, 20 * scale, 4 * scale)
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.76)'
-      ctx.lineWidth = 3 * scale
-      ctx.beginPath()
-      ctx.moveTo(x - 11 * scale, y + 8 * scale)
-      ctx.lineTo(x - 28 * scale, y + 26 * scale)
-      ctx.moveTo(x + 10 * scale, y + 8 * scale)
-      ctx.lineTo(x + 26 * scale, y + 23 * scale)
-      ctx.stroke()
-    }
-
-    const drawProduction = (time, opacity) => {
-      ctx.save()
-      ctx.globalAlpha = opacity
-      const floor = height * 0.74
-      ctx.fillStyle = 'rgba(235, 244, 247, 0.1)'
-      ctx.fillRect(0, floor, width, height - floor)
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)'
-      ctx.lineWidth = 2
-
-      for (let i = 0; i < 5; i += 1) {
-        const x = width * (0.24 + i * 0.105)
-        const tankW = width * 0.065
-        const tankH = height * (0.33 + (i % 2) * 0.06)
-        const y = floor - tankH
-        const g = ctx.createLinearGradient(x - tankW / 2, 0, x + tankW / 2, 0)
-        g.addColorStop(0, 'rgba(178, 195, 201, 0.72)')
-        g.addColorStop(0.5, 'rgba(246, 252, 255, 0.92)')
-        g.addColorStop(1, 'rgba(130, 155, 166, 0.74)')
-        ctx.fillStyle = g
-        roundedRect(x - tankW / 2, y, tankW, tankH, 18)
-        ctx.fill()
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.62)'
-        ctx.stroke()
-        ctx.fillStyle = 'rgba(20, 88, 112, 0.72)'
-        ctx.fillRect(x - tankW * 0.22, y + tankH * 0.24, tankW * 0.44, 8)
-        ctx.strokeStyle = 'rgba(215, 240, 246, 0.72)'
-        ctx.beginPath()
-        ctx.moveTo(x, y)
-        ctx.lineTo(x, height * 0.2)
-        ctx.lineTo(width * 0.78, height * 0.2)
-        ctx.stroke()
-      }
-
-      ctx.fillStyle = 'rgba(220, 235, 240, 0.8)'
-      ctx.fillRect(width * 0.24, height * 0.23, width * 0.58, 7)
-      ctx.fillRect(width * 0.24, height * 0.31, width * 0.5, 5)
-      ctx.fillStyle = 'rgba(5, 26, 34, 0.72)'
-      roundedRect(width * 0.63, floor - height * 0.18, width * 0.12, height * 0.1, 6)
-      ctx.fill()
-      ctx.fillStyle = 'rgba(108, 231, 194, 0.82)'
-      ctx.fillRect(width * 0.646, floor - height * 0.155, width * 0.06, 6)
-      ctx.fillRect(width * 0.646, floor - height * 0.13, width * 0.082, 6)
-      drawWorker(width * 0.54, floor - 58, 1.05, '#d8ad86')
-      drawWorker(width * 0.59, floor - 50, 0.94, '#f0c7a7')
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.82)'
-      ctx.font = `${Math.max(17, width * 0.016)}px Roboto, Arial`
-      ctx.fillText('API Production', width * 0.22, height * 0.18)
-      ctx.restore()
-    }
-
-    const drawTransport = (time, progress, opacity) => {
-      ctx.save()
-      ctx.globalAlpha = opacity
-      const sky = ctx.createLinearGradient(0, 0, 0, height)
-      sky.addColorStop(0, 'rgba(112, 194, 219, 0.66)')
-      sky.addColorStop(0.52, 'rgba(204, 234, 241, 0.34)')
-      sky.addColorStop(1, 'rgba(23, 42, 44, 0.4)')
-      ctx.fillStyle = sky
-      ctx.fillRect(0, 0, width, height)
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.76)'
-      for (let i = 0; i < 5; i += 1) {
-        const x = ((i * 260 + time * 0.018) % (width + 260)) - 130
-        const y = height * (0.16 + (i % 3) * 0.05)
-        ctx.beginPath()
-        ctx.ellipse(x, y, 78, 20, 0, 0, Math.PI * 2)
-        ctx.ellipse(x + 42, y - 7, 46, 15, 0, 0, Math.PI * 2)
-        ctx.fill()
-      }
-
-      const roadTop = height * 0.57
-      ctx.fillStyle = 'rgba(22, 31, 34, 0.82)'
-      ctx.beginPath()
-      ctx.moveTo(width * 0.1, height)
-      ctx.lineTo(width * 0.44, roadTop)
-      ctx.lineTo(width * 0.63, roadTop)
-      ctx.lineTo(width * 0.98, height)
-      ctx.closePath()
-      ctx.fill()
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.72)'
-      ctx.lineWidth = 5
-      ctx.beginPath()
-      ctx.moveTo(width * 0.52, roadTop + 18)
-      ctx.lineTo(width * 0.54, height)
-      ctx.stroke()
-
-      ctx.strokeStyle = 'rgba(8, 33, 44, 0.66)'
-      ctx.lineWidth = 6
-      for (let i = 0; i < 5; i += 1) {
-        const x = width * (0.72 + i * 0.05)
-        ctx.beginPath()
-        ctx.moveTo(x, height * 0.44)
-        ctx.lineTo(x, height * 0.61)
-        ctx.moveTo(x - 42, height * 0.48)
-        ctx.lineTo(x + 42, height * 0.48)
-        ctx.stroke()
-      }
-
-      const move = ease(Math.max(0, Math.min(1, (progress - 0.33) / 0.34)))
-      const truckX = width * (0.24 + move * 0.15)
-      const truckY = height * 0.62
-      const truckW = width * 0.28
-      const truckH = height * 0.16
-      ctx.fillStyle = 'rgba(245, 250, 252, 0.96)'
-      roundedRect(truckX, truckY - truckH, truckW, truckH, 9)
-      ctx.fill()
-      ctx.fillStyle = 'rgba(236, 244, 247, 0.98)'
-      roundedRect(truckX - truckW * 0.26, truckY - truckH * 0.92, truckW * 0.27, truckH * 0.92, 8)
-      ctx.fill()
-      ctx.fillStyle = 'rgba(24, 80, 102, 0.78)'
-      ctx.fillRect(truckX - truckW * 0.22, truckY - truckH * 0.82, truckW * 0.15, truckH * 0.35)
-      const wheelPositions = [truckX - truckW * 0.14, truckX + truckW * 0.08, truckX + truckW * 0.24]
-      wheelPositions.forEach((wheelX) => {
-        ctx.fillStyle = '#0b2a35'
-        ctx.beginPath()
-        ctx.arc(wheelX, truckY + 5, 22, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.fillStyle = '#dbe8eb'
-        ctx.beginPath()
-        ctx.arc(wheelX, truckY + 5, 9, 0, Math.PI * 2)
-        ctx.fill()
-      })
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.86)'
-      ctx.font = `${Math.max(17, width * 0.016)}px Roboto, Arial`
-      ctx.fillText('Cold-chain Logistics', width * 0.18, height * 0.2)
-      ctx.restore()
-    }
-
-    const drawPills = (time, progress, opacity) => {
-      ctx.save()
-      ctx.globalAlpha = opacity
-      const floor = height * 0.72
-      ctx.fillStyle = 'rgba(214, 229, 233, 0.12)'
-      ctx.fillRect(0, floor, width, height - floor)
-      ctx.fillStyle = 'rgba(236, 244, 246, 0.88)'
-      roundedRect(width * 0.18, height * 0.5, width * 0.62, height * 0.09, 20)
-      ctx.fill()
-      ctx.fillStyle = 'rgba(29, 64, 72, 0.72)'
-      ctx.fillRect(width * 0.21, height * 0.527, width * 0.56, height * 0.032)
-
-      const beltMove = ((progress - 0.64) / 0.36) * 260
-      for (let i = 0; i < 12; i += 1) {
-        const x = width * 0.23 + ((i * 70 + beltMove) % (width * 0.5))
-        const y = height * 0.542 + Math.sin(time * 0.004 + i) * 2
-        ctx.save()
-        ctx.translate(x, y)
-        ctx.rotate((i % 4 - 1.5) * 0.08)
-        if (i % 2 === 0) {
-          ctx.fillStyle = i % 3 === 0 ? '#f8fbff' : '#62d8bd'
-          roundedRect(-18, -8, 36, 16, 8)
-          ctx.fill()
-          ctx.fillStyle = 'rgba(11, 86, 114, 0.28)'
-          ctx.fillRect(0, -8, 2, 16)
-        } else {
-          ctx.fillStyle = '#f2f8fa'
-          ctx.beginPath()
-          ctx.arc(0, 0, 12, 0, Math.PI * 2)
-          ctx.fill()
-          ctx.strokeStyle = 'rgba(13, 77, 103, 0.3)'
-          ctx.beginPath()
-          ctx.moveTo(-7, 0)
-          ctx.lineTo(7, 0)
-          ctx.stroke()
-        }
-        ctx.restore()
-      }
-
-      ctx.fillStyle = 'rgba(230, 240, 244, 0.94)'
-      roundedRect(width * 0.48, height * 0.24, width * 0.16, height * 0.23, 12)
-      ctx.fill()
-      ctx.fillStyle = 'rgba(15, 62, 78, 0.86)'
-      ctx.fillRect(width * 0.51, height * 0.28, width * 0.1, height * 0.05)
-      ctx.fillStyle = 'rgba(98, 216, 189, 0.88)'
-      ctx.fillRect(width * 0.525, height * 0.295, width * 0.07, 5)
-      ctx.strokeStyle = 'rgba(235, 248, 252, 0.66)'
-      ctx.lineWidth = 5
-      ctx.beginPath()
-      ctx.moveTo(width * 0.56, height * 0.47)
-      ctx.lineTo(width * 0.56, height * 0.53)
-      ctx.stroke()
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.86)'
-      ctx.font = `${Math.max(17, width * 0.016)}px Roboto, Arial`
-      ctx.fillText('Tablet Manufacturing', width * 0.18, height * 0.2)
-      ctx.restore()
-    }
-
-    const draw = (time = 0) => {
-      drawBase(time)
-      const progress = (time % 10000) / 10000
-      drawProduction(time, sceneOpacity(progress, 0, 0.34))
-      drawTransport(time, progress, sceneOpacity(progress, 0.3, 0.68))
-      drawPills(time, progress, sceneOpacity(progress, 0.62, 1))
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.06)'
-      ctx.font = `700 ${Math.max(74, width * 0.08)}px Roboto, Arial`
-      ctx.fillText('ABP', width * 0.66, height * 0.78)
-
-      animationFrame = requestAnimationFrame(draw)
-    }
-
-    resize()
-    draw()
-
-    if (video) {
-      video.srcObject = null
-      video.play().catch(() => {})
-    }
-
-    window.addEventListener('resize', resize)
-    return () => {
-      cancelAnimationFrame(animationFrame)
-      window.removeEventListener('resize', resize)
-      stream?.getTracks().forEach((track) => track.stop())
-    }
   }, [])
 
   const scrollToProducts = () => {
@@ -637,7 +322,13 @@ function HomeLanding({ onEnterManagement }) {
         </div>
       )}
 
-      <section className="home-hero">
+      <section
+        className="home-hero"
+        style={{
+          '--hero-cycle-duration': `${heroCycleDuration}s`,
+          '--hero-line-gap': `${heroCycleDuration / HERO_MESSAGE_LINES.length}s`,
+        }}
+      >
         <video
           ref={videoRef}
           className="home-hero-video"
@@ -647,15 +338,15 @@ function HomeLanding({ onEnterManagement }) {
           autoPlay
           loop
           preload="auto"
+          onLoadedMetadata={syncHeroVideoTiming}
           aria-label="Ace Bio Pharm background video"
         />
-        <canvas ref={canvasRef} className="home-hero-canvas" aria-hidden="true" />
         <div className="home-hero-shade" />
         <div className="home-hero-message" aria-label="더 건강한 미래를 만듭니다. 고객 감동을 실현하는 에이스바이오팜">
           {HERO_MESSAGE_LINES.map((line, lineIndex) => (
             <p
               className="home-hero-message-line"
-              key={line}
+              key={`${heroAnimationKey}-${line}`}
               style={{ '--line-index': lineIndex }}
             >
               {line.split(' ').map((word, wordIndex) => (
