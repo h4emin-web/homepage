@@ -164,8 +164,8 @@ const HISTORY_ERAS = [
   {
     id: '2021-2025',
     range: '2025 - 2021',
-    headline: '끊임없이 도전하는 기업 정신, 화합하는 기업문화',
-    image: '/product-api-factory-bg.png',
+    headline: '끊임없이 도전하는 기업 정신',
+    image: '/history-hq-building.jpg',
     years: [
       {
         year: '2025',
@@ -213,7 +213,7 @@ const HISTORY_ERAS = [
     id: '2015-2020',
     range: '2020 - 2015',
     headline: '연구와 확장으로 다지는 성장의 기반',
-    image: '/product-botanical-lab-bg.png',
+    image: '/history-factory-building.jpg',
     years: [
       { year: '2020', items: ['매출 765억원 달성', 'DMF 114품목 등록'] },
       { year: '2019', items: ['매출 710억원 달성', '(주)에이스바이오텍 합병', '대전 바이오연구소 설립'] },
@@ -227,7 +227,7 @@ const HISTORY_ERAS = [
     id: '2004-2014',
     range: '2014 - 2004',
     headline: '작은 도전에서 시작된 에이스바이오팜',
-    image: '/company-research-hero.png',
+    image: null,
     years: [
       { year: '2014', items: ['매출 200억원 달성'] },
       { year: '2011', items: ['관계회사 에이스바이오텍 설립'] },
@@ -369,7 +369,10 @@ function HistoryPage() {
 
       {HISTORY_ERAS.map((era) => (
         <div className="history-era" key={era.id}>
-          <div className="history-era-banner" style={{ backgroundImage: `url(${era.image})` }}>
+          <div
+            className={`history-era-banner ${era.image ? '' : 'history-era-banner-plain'}`}
+            style={era.image ? { backgroundImage: `url(${era.image})` } : undefined}
+          >
             <div className="history-era-banner-overlay">
               <span className="history-era-range">{era.range}</span>
               <h2>{era.headline}</h2>

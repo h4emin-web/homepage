@@ -1331,10 +1331,14 @@ body {
 .history-era-banner {
   position: relative;
   width: 100%;
-  height: clamp(220px, 26vw, 360px);
+  height: clamp(110px, 13vw, 180px);
   background-size: cover;
   background-position: center;
   margin-bottom: 36px;
+}
+
+.history-era-banner-plain {
+  background: linear-gradient(120deg, #16324f, #2a5a8c 55%, #4d86b8);
 }
 
 .history-era-banner-overlay {
@@ -1346,6 +1350,10 @@ body {
   padding: 0 min(6vw, 64px);
   background: linear-gradient(90deg, rgba(16, 24, 32, 0.74), rgba(16, 24, 32, 0.28));
   color: #fff;
+}
+
+.history-era-banner-plain .history-era-banner-overlay {
+  background: none;
 }
 
 .history-era-range {
@@ -1432,7 +1440,7 @@ body {
   }
 
   .history-era-banner {
-    height: 200px;
+    height: 100px;
     margin-bottom: 24px;
   }
 
