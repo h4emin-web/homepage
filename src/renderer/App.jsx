@@ -150,7 +150,16 @@ const FOOTER_NAV_GROUPS = [
 function CompanyIntroPage() {
   return (
     <section className="company-page" aria-label="회사소개">
-      <h1>We have the solution you need</h1>
+      <div className="company-page-header">
+        <nav className="company-breadcrumb" aria-label="이동 경로">
+          <span>Home</span>
+          <span className="company-breadcrumb-sep">›</span>
+          <span>회사소개</span>
+          <span className="company-breadcrumb-sep">›</span>
+          <span className="company-breadcrumb-current">회사 현황</span>
+        </nav>
+        <h1>We have the solution you need</h1>
+      </div>
       <div className="company-hero-image" aria-hidden="true" />
       <div className="company-content">
         <aside className="company-statement">

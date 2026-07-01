@@ -1101,20 +1101,45 @@ body {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
 }
 
-.company-page h1 {
-  height: 98px;
+.company-page-header {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.company-breadcrumb {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  margin-top: 36px;
+  margin-bottom: 26px;
+  font-size: 13px;
+  color: #7a8390;
+}
+
+.company-breadcrumb-sep {
+  color: #c2c8cf;
+}
+
+.company-breadcrumb-current {
+  color: #101820;
+  font-weight: 600;
+}
+
+.company-page h1 {
+  height: auto;
+  display: block;
+  text-align: left;
   font-size: clamp(25px, 1.9vw, 32px);
-  line-height: 1;
+  line-height: 1.2;
   font-weight: 800;
   letter-spacing: 0;
+  margin: 0 0 40px;
 }
 
 .company-hero-image {
   width: 100%;
-  height: clamp(190px, 22vw, 330px);
+  height: clamp(150px, 17vw, 260px);
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.04) 44%, rgba(255, 255, 255, 0.18)),
     url('/company-research-hero.png') center 44% / cover no-repeat;
@@ -1134,8 +1159,8 @@ body {
 }
 
 .company-statement p {
-  font-size: 17px;
-  line-height: 1.55;
+  font-size: 24px;
+  line-height: 1.4;
   font-weight: 800;
   letter-spacing: 0;
 }
@@ -1195,15 +1220,24 @@ body {
     padding-top: 64px;
   }
 
-  .company-page h1 {
-    height: 82px;
+  .company-page-header {
     padding: 0 18px;
+  }
+
+  .company-breadcrumb {
+    margin-top: 8px;
+    margin-bottom: 18px;
+  }
+
+  .company-page h1 {
+    height: auto;
     font-size: 24px;
-    text-align: center;
+    text-align: left;
+    margin: 0 0 24px;
   }
 
   .company-hero-image {
-    height: 210px;
+    height: 180px;
     background-position: 58% center;
   }
 
