@@ -1347,13 +1347,18 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 min(6vw, 64px);
   background: linear-gradient(90deg, rgba(16, 24, 32, 0.74), rgba(16, 24, 32, 0.28));
   color: #fff;
 }
 
 .history-era-banner-plain .history-era-banner-overlay {
   background: none;
+}
+
+.history-era-banner-inner {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  padding: 0 28px;
 }
 
 .history-era-range {
@@ -1444,7 +1449,7 @@ body {
     margin-bottom: 24px;
   }
 
-  .history-era-banner-overlay {
+  .history-era-banner-inner {
     padding: 0 20px;
   }
 

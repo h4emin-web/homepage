@@ -374,8 +374,10 @@ function HistoryPage() {
             style={era.image ? { backgroundImage: `url(${era.image})` } : undefined}
           >
             <div className="history-era-banner-overlay">
-              <span className="history-era-range">{era.range}</span>
-              <h2>{era.headline}</h2>
+              <div className="history-era-banner-inner">
+                <span className="history-era-range">{era.range}</span>
+                <h2>{era.headline}</h2>
+              </div>
             </div>
           </div>
           <div className="history-era-years">
