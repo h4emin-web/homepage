@@ -403,6 +403,7 @@ function HomeLanding({ onEnterManagement }) {
   const videoRef = useRef(null)
   const [activeHomePage, setActiveHomePage] = useState('main')
   const [heroCycleDuration, setHeroCycleDuration] = useState(10.4)
+  const [activeHeroLine, setActiveHeroLine] = useState(0)
   const [heroAnimationKey, setHeroAnimationKey] = useState(0)
   const [solutionProgress, setSolutionProgress] = useState(0)
   const [solutionLocked, setSolutionLocked] = useState(false)
@@ -442,9 +443,22 @@ function HomeLanding({ onEnterManagement }) {
     const video = event.currentTarget
     const duration = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : 10.4
     setHeroCycleDuration(duration)
+    setActiveHeroLine(0)
     video.currentTime = 0
     setHeroAnimationKey((key) => key + 1)
     video.play().catch(() => {})
+  }
+
+  const syncHeroCaptionToScene = (event) => {
+    const video = event.currentTarget
+    const duration = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : heroCycleDuration
+    const sceneLength = duration / HERO_MESSAGE_LINES.length
+    const nextLine = Math.min(HERO_MESSAGE_LINES.length - 1, Math.floor(video.currentTime / sceneLength))
+    setActiveHeroLine((currentLine) => {
+      if (currentLine === nextLine) return currentLine
+      setHeroAnimationKey((key) => key + 1)
+      return nextLine
+    })
   }
 
   useEffect(() => {
@@ -629,10 +643,6 @@ function HomeLanding({ onEnterManagement }) {
         <>
       <section
         className="home-hero"
-        style={{
-          '--hero-cycle-duration': `${heroCycleDuration}s`,
-          '--hero-line-gap': `${heroCycleDuration / HERO_MESSAGE_LINES.length}s`,
-        }}
       >
         <video
           ref={videoRef}
@@ -644,14 +654,15 @@ function HomeLanding({ onEnterManagement }) {
           loop
           preload="auto"
           onLoadedMetadata={syncHeroVideoTiming}
+          onTimeUpdate={syncHeroCaptionToScene}
           aria-label="Ace Bio Pharm background video"
         />
         <div className="home-hero-shade" />
         <div className="home-hero-message" aria-label="더 건강한 미래를 만듭니다. 고객 감동을 실현하는 에이스바이오팜">
           {HERO_MESSAGE_LINES.map((line, lineIndex) => (
             <p
-              className="home-hero-message-line"
-              key={`${heroAnimationKey}-${line}`}
+              className={`home-hero-message-line ${activeHeroLine === lineIndex ? 'active' : ''}`}
+              key={`${heroAnimationKey}-${lineIndex}-${line}`}
               style={{ '--line-index': lineIndex }}
             >
               {line.split(' ').map((word, wordIndex) => (
