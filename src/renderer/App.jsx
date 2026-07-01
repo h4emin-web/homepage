@@ -16,6 +16,7 @@ const LANGUAGES = ['한국어', 'English', '中文(简)', '中文(繁)']
 const SUB_PAGE_MAP = {
   '회사 현황': 'company',
   '경영진 인사말': 'greeting',
+  '연혁': 'history',
 }
 
 const NAV_MENU_GROUPS = [
@@ -159,6 +160,83 @@ const MANAGEMENT_GREETINGS = [
   },
 ]
 
+const HISTORY_ERAS = [
+  {
+    id: '2021-2025',
+    range: '2025 - 2021',
+    headline: '끊임없이 도전하는 기업 정신, 화합하는 기업문화',
+    image: '/product-api-factory-bg.png',
+    years: [
+      {
+        year: '2025',
+        items: [
+          '매출 1,277억원 달성',
+          'DMF 232 품목 등록 완료, 의약품 품목허가신고 5품목',
+          '수출 US$3,069,364, 비타민K 등 미국·유럽 수출',
+          '벤처기업 확인서(벤처투자유형) 발급',
+        ],
+      },
+      {
+        year: '2024',
+        items: ['매출 1,210억 달성', 'DMF 18 품목 등록, 품목허가 2품목', '창립 20주년'],
+      },
+      {
+        year: '2023',
+        items: [
+          '매출 1,080억 달성',
+          'DMF 신규 12품목 등록, 의약품 품목허가신고 11품목',
+          'Evonik社 Pharmaceutical Excipients 제품 런칭',
+          '특허등록(제 10-2501636호, 페노피브린산 관련)',
+        ],
+      },
+      {
+        year: '2022',
+        items: [
+          '매출 1,003억 달성',
+          'DMF 187 품목 등록 완료(신규 25건)',
+          '본사 사옥 매입 이전(방배동, 08.14)',
+          'Seppic社 제품 런칭',
+        ],
+      },
+      {
+        year: '2021',
+        items: [
+          '매출 863억원 달성',
+          'DMF 162품목 등록',
+          '상호명 변경(동진파마 → 에이스바이오팜)',
+          '평택공장 개업(11.01)',
+        ],
+      },
+    ],
+  },
+  {
+    id: '2015-2020',
+    range: '2020 - 2015',
+    headline: '연구와 확장으로 다지는 성장의 기반',
+    image: '/product-botanical-lab-bg.png',
+    years: [
+      { year: '2020', items: ['매출 765억원 달성', 'DMF 114품목 등록'] },
+      { year: '2019', items: ['매출 710억원 달성', '(주)에이스바이오텍 합병', '대전 바이오연구소 설립'] },
+      { year: '2018', items: ['매출 580억원 달성', 'DMF 79품목 등록'] },
+      { year: '2017', items: ['매출 550억원 달성', 'DMF 60품목 등록'] },
+      { year: '2016', items: ['매출 500억원 달성', '본사 사옥 매입 이전(9월)'] },
+      { year: '2015', items: ['매출 300억원 달성', 'DMF 40품목 등록'] },
+    ],
+  },
+  {
+    id: '2004-2014',
+    range: '2014 - 2004',
+    headline: '작은 도전에서 시작된 에이스바이오팜',
+    image: '/company-research-hero.png',
+    years: [
+      { year: '2014', items: ['매출 200억원 달성'] },
+      { year: '2011', items: ['관계회사 에이스바이오텍 설립'] },
+      { year: '2009', items: ['매출 110억원 달성'] },
+      { year: '2004', items: ['회사설립(자본금 2억원)'] },
+    ],
+  },
+]
+
 const FOOTER_NAV_GROUPS = [
   {
     title: '회사소개',
@@ -270,6 +348,51 @@ function GreetingPage() {
   )
 }
 
+function HistoryPage() {
+  return (
+    <section className="company-page history-page" aria-label="연혁">
+      <div className="company-page-header">
+        <nav className="company-breadcrumb" aria-label="이동 경로">
+          <span>Home</span>
+          <span className="company-breadcrumb-sep">›</span>
+          <span>회사소개</span>
+          <span className="company-breadcrumb-sep">›</span>
+          <span className="company-breadcrumb-current">연혁</span>
+        </nav>
+        <h1>연혁</h1>
+        <p className="history-lead">
+          2004년부터 지금까지,
+          <br />
+          혁신을 통해 성장한 에이스바이오팜의 기록입니다
+        </p>
+      </div>
+
+      {HISTORY_ERAS.map((era) => (
+        <div className="history-era" key={era.id}>
+          <div className="history-era-banner" style={{ backgroundImage: `url(${era.image})` }}>
+            <div className="history-era-banner-overlay">
+              <span className="history-era-range">{era.range}</span>
+              <h2>{era.headline}</h2>
+            </div>
+          </div>
+          <div className="history-era-years">
+            {era.years.map((yearEntry) => (
+              <div className="history-year-row" key={yearEntry.year}>
+                <div className="history-year-label">{yearEntry.year}</div>
+                <ul className="history-year-items">
+                  {yearEntry.items.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  )
+}
+
 function HomeLanding({ onEnterManagement }) {
   const scrollRef = useRef(null)
   const videoRef = useRef(null)
@@ -361,7 +484,9 @@ function HomeLanding({ onEnterManagement }) {
 
   return (
     <main
-      className={`home-shell ${activeHomePage === 'company' || activeHomePage === 'greeting' ? 'company-mode' : ''}`}
+      className={`home-shell ${
+        activeHomePage === 'company' || activeHomePage === 'greeting' || activeHomePage === 'history' ? 'company-mode' : ''
+      }`}
       ref={scrollRef}
     >
       <header className="home-nav" onMouseLeave={() => setHoveredNav(null)}>
@@ -493,6 +618,8 @@ function HomeLanding({ onEnterManagement }) {
         <CompanyIntroPage />
       ) : activeHomePage === 'greeting' ? (
         <GreetingPage />
+      ) : activeHomePage === 'history' ? (
+        <HistoryPage />
       ) : (
         <>
       <section
