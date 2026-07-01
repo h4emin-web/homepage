@@ -389,7 +389,7 @@ function HomeLanding({ onEnterManagement }) {
               <span>{group.description}</span>
               <div className="product-actions">
                 {group.actions.map((action) => (
-                  <button key={action.label} onClick={() => onEnterManagement(action.tab)}>
+                  <button key={action.label} type="button">
                     {action.label}
                   </button>
                 ))}
