@@ -13,6 +13,11 @@ const ALL_TABS = [...CATEGORIES, '업무일지', 'AI 전화영어']
 const SITE_NAV_ITEMS = ['회사소개', '제품소개', '연구개발', '투자정보', '파트너', '인재채용', '지속가능경영']
 const LANGUAGES = ['한국어', 'English', '中文(简)', '中文(繁)']
 
+const SUB_PAGE_MAP = {
+  '회사 현황': 'company',
+  '경영진 인사말': 'greeting',
+}
+
 const NAV_MENU_GROUPS = [
   {
     title: '회사소개',
@@ -116,6 +121,44 @@ const COMPANY_PROFILE_ROWS = [
   ['대표전화', '02-579-1056'],
 ]
 
+const MANAGEMENT_GREETINGS = [
+  {
+    title: '대표이사',
+    name: '민병규',
+    englishName: 'Byoung-Gyu Min',
+    photo: '/exec-ceo-min.jpg',
+    photoSide: 'right',
+    message: [
+      '에이스바이오팜은 2004년 설립 이후 의약품 유통 혁신을 위해 열심히 달리고 있으며, 좋은 사람들이 모여 보람 있는 회사를 만들어가고 있습니다.',
+      '아울러 사업분야인 원료 도매, 수출입, 개발 등에 있어 국내외 협력사들과 공동 성장하는 회사로 성장해 나갈 것입니다.',
+      '앞으로도 끊임없이 도전하는 기업 정신, 화합하는 기업문화를 통해 고객 여러분의 무한 발전에 이바지할 것을 약속드립니다.',
+    ],
+  },
+  {
+    title: '마케팅 총괄이사, 사장',
+    name: '김준기',
+    englishName: 'Jun-Gi Kim',
+    photo: '/exec-cmo-kim.jpg',
+    photoSide: 'left',
+    message: [
+      '저희 에이스바이오팜은 전 임직원이 3가지 원칙(Good Quality, On Time Delivery, Satisfying Price)을 지켜 고객감동을 실현하는 것을 제1가치로 삼고 있습니다.',
+      '고객 여러분께 제공할 솔루션 마련에 언제나 최선을 다함과 동시에, 의약품·화장품·식품 원료 업계 선도 기업으로 거듭나 고객 여러분의 든든한 동반자가 될 것을 약속드립니다.',
+    ],
+  },
+  {
+    title: '기술이사, 바이오연구소장',
+    name: '장형욱',
+    englishName: 'Hyung-Wook Jang',
+    photo: '/exec-cto-jang.jpg',
+    photoSide: 'right',
+    message: [
+      '에이스바이오팜 바이오연구소는 2015년 바이오 제품의 상용화 기술개발로 개편한 이후 인류 건강과 행복에 이바지 할 수 있는 세계 일등 바이오 소재 제품을 생산하기 위하여 끊임없이 도전하고 있습니다.',
+      '저희 연구소는 독창적인 연구기술뿐만 아니라 상업적 생산 경험 및 우수한 마케팅 능력을 갖춤으로써, 세계를 무대로 의약품/화장품/식품원료 등 다양한 분야에서 높은 부가가치를 실현하고 있습니다.',
+      '끊임없는 노력과 도전으로 양질의 바이오제품을 공급함으로써 고객 만족과 직원의 자긍심을 실현하고, 나아가 사회발전에 이바지하는 기업으로 성장 할 것을 약속드립니다.',
+    ],
+  },
+]
+
 const FOOTER_NAV_GROUPS = [
   {
     title: '회사소개',
@@ -186,6 +229,42 @@ function CompanyIntroPage() {
             ))}
           </dl>
         </div>
+      </div>
+    </section>
+  )
+}
+
+function GreetingPage() {
+  return (
+    <section className="company-page greeting-page" aria-label="경영진 인사말">
+      <div className="company-page-header">
+        <nav className="company-breadcrumb" aria-label="이동 경로">
+          <span>Home</span>
+          <span className="company-breadcrumb-sep">›</span>
+          <span>회사소개</span>
+          <span className="company-breadcrumb-sep">›</span>
+          <span className="company-breadcrumb-current">경영진 인사말</span>
+        </nav>
+        <h1>경영진 인사말</h1>
+      </div>
+      <div className="greeting-list">
+        {MANAGEMENT_GREETINGS.map((person) => (
+          <article className={`greeting-card greeting-photo-${person.photoSide}`} key={person.name}>
+            <div className="greeting-photo">
+              <img src={person.photo} alt={`${person.name} ${person.englishName}`} />
+            </div>
+            <div className="greeting-info">
+              <p className="greeting-role">{person.title}</p>
+              <h2 className="greeting-name">
+                {person.name} <span className="greeting-english-name">{person.englishName}</span>
+              </h2>
+              <hr />
+              {person.message.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   )
@@ -265,6 +344,15 @@ function HomeLanding({ onEnterManagement }) {
     scroller.scrollTo({ top: scroller.clientHeight * 1.08, behavior: 'smooth' })
   }
 
+  const goToSubPage = (subItem) => {
+    const page = SUB_PAGE_MAP[subItem]
+    if (!page) return
+    setActiveHomePage(page)
+    setHoveredNav(null)
+    setMenuOpen(false)
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const effectiveProgress = solutionLocked ? 1 : solutionProgress
   const headlineScale = 1 + effectiveProgress * (scrollRef.current?.clientWidth < 600 ? 0.54 : 2.12)
   const headlineOpacity = solutionLocked ? 0 : Math.max(0, 1 - Math.max(0, effectiveProgress - 0.48) / 0.32)
@@ -272,7 +360,10 @@ function HomeLanding({ onEnterManagement }) {
   const hoveredMenu = NAV_MENU_GROUPS.find((group) => group.title === hoveredNav)
 
   return (
-    <main className={`home-shell ${activeHomePage === 'company' ? 'company-mode' : ''}`} ref={scrollRef}>
+    <main
+      className={`home-shell ${activeHomePage === 'company' || activeHomePage === 'greeting' ? 'company-mode' : ''}`}
+      ref={scrollRef}
+    >
       <header className="home-nav" onMouseLeave={() => setHoveredNav(null)}>
         <button
           className="home-logo"
@@ -319,7 +410,7 @@ function HomeLanding({ onEnterManagement }) {
                           <ul>
                             {column.items.map((subItem) => (
                               <li key={subItem}>
-                                <button>{subItem}</button>
+                                <button onClick={() => goToSubPage(subItem)}>{subItem}</button>
                               </li>
                             ))}
                           </ul>
@@ -386,7 +477,7 @@ function HomeLanding({ onEnterManagement }) {
                   <ul className="full-menu-list">
                     {column.items.map((item) => (
                       <li key={item}>
-                        <button>{item}</button>
+                        <button onClick={() => goToSubPage(item)}>{item}</button>
                       </li>
                     ))}
                   </ul>
@@ -400,6 +491,8 @@ function HomeLanding({ onEnterManagement }) {
 
       {activeHomePage === 'company' ? (
         <CompanyIntroPage />
+      ) : activeHomePage === 'greeting' ? (
+        <GreetingPage />
       ) : (
         <>
       <section
