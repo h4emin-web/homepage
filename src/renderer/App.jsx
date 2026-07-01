@@ -715,7 +715,7 @@ function HomeLanding({ onEnterManagement }) {
                 <ul>
                   {group.items.map((item) => (
                     <li key={item}>
-                      <button>{item}</button>
+                      <button onClick={() => goToSubPage(item)}>{item}</button>
                     </li>
                   ))}
                 </ul>
