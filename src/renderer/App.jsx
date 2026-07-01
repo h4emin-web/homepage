@@ -274,9 +274,9 @@ function CompanyIntroPage() {
       <div className="company-page-header">
         <nav className="company-breadcrumb" aria-label="이동 경로">
           <span>Home</span>
-          <span className="company-breadcrumb-sep">›</span>
+          <span className="company-breadcrumb-sep">&gt;</span>
           <span>회사소개</span>
-          <span className="company-breadcrumb-sep">›</span>
+          <span className="company-breadcrumb-sep">&gt;</span>
           <span className="company-breadcrumb-current">회사 현황</span>
         </nav>
         <h1>We have the solution you need</h1>
