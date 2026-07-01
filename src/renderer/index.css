@@ -1088,6 +1088,143 @@ body {
   transform: translateY(-53%);
 }
 
+.home-shell.company-mode {
+  background: #fff;
+  color: #101820;
+}
+
+.company-page {
+  min-height: 100vh;
+  padding: 82px 0 96px;
+  background: #fff;
+  color: #101820;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+}
+
+.company-page h1 {
+  height: 98px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(25px, 1.9vw, 32px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.company-hero-image {
+  width: 100%;
+  height: clamp(190px, 22vw, 330px);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.04) 44%, rgba(255, 255, 255, 0.18)),
+    url('/company-research-hero.png') center 44% / cover no-repeat;
+}
+
+.company-content {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) minmax(0, 720px);
+  gap: clamp(52px, 6vw, 104px);
+  width: min(100%, 1080px);
+  margin: 76px auto 0;
+  padding: 0 28px;
+}
+
+.company-statement {
+  padding-top: 4px;
+}
+
+.company-statement p {
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.company-detail {
+  min-width: 0;
+}
+
+.company-intro-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 38px;
+  color: #4b5560;
+  font-size: 15px;
+  line-height: 1.75;
+  font-weight: 350;
+}
+
+.company-profile-table {
+  border-top: 1px solid #171717;
+  border-bottom: 1px solid #171717;
+}
+
+.company-profile-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  min-height: 44px;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.company-profile-row:last-child {
+  border-bottom: 0;
+}
+
+.company-profile-row dt,
+.company-profile-row dd {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.company-profile-row dt {
+  color: #101820;
+  font-weight: 800;
+}
+
+.company-profile-row dd {
+  color: #39434d;
+  font-weight: 350;
+}
+
+@media (max-width: 760px) {
+  .company-page {
+    padding-top: 64px;
+  }
+
+  .company-page h1 {
+    height: 82px;
+    padding: 0 18px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .company-hero-image {
+    height: 210px;
+    background-position: 58% center;
+  }
+
+  .company-content {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    margin-top: 42px;
+    padding: 0 20px;
+  }
+
+  .company-profile-row {
+    grid-template-columns: 116px 1fr;
+  }
+
+  .company-profile-row dt,
+  .company-profile-row dd {
+    padding: 11px 8px;
+    font-size: 13px;
+  }
+}
+
 .home-footer {
   background: #050505;
   color: rgba(255, 255, 255, 0.78);

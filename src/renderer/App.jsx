@@ -101,6 +101,21 @@ const PRODUCT_GROUPS = [
 
 const HERO_MESSAGE_LINES = ['더 건강한 미래를 만듭니다', '고객 감동을 실현하는', '에이스바이오팜']
 
+const COMPANY_PROFILE_ROWS = [
+  ['회사명', '에이스바이오팜 주식회사'],
+  ['대표자', '민병규'],
+  ['사업자등록번호', '214-87-62038'],
+  ['설립일', '2004년 11월 23일'],
+  ['주요품목', '의약품·화장품·식품 원료, 건강기능식품'],
+  ['사업종목', '원료의약품 등의 도매업, 건강기능식품 제조업'],
+  ['본점', '서울 서초구 방배로20길 5 서명빌딩 4,5,6층'],
+  ['물류센터', '경기 화성시 향남읍 발안공단로 6길 10'],
+  ['연구소', '대전 유성구 유성대로1662 대전바이오벤처타운 512,513호'],
+  ['정제공장', '경기도 평택시 청북읍 드림산단4로 140'],
+  ['종업원 수', '94명'],
+  ['대표전화', '02-579-1056'],
+]
+
 const FOOTER_NAV_GROUPS = [
   {
     title: '회사소개',
@@ -132,9 +147,45 @@ const FOOTER_NAV_GROUPS = [
   },
 ]
 
+function CompanyIntroPage() {
+  return (
+    <section className="company-page" aria-label="회사소개">
+      <h1>We have the solution you need</h1>
+      <div className="company-hero-image" aria-hidden="true" />
+      <div className="company-content">
+        <aside className="company-statement">
+          <p>바이오소재 전문기업</p>
+        </aside>
+        <div className="company-detail">
+          <div className="company-intro-copy">
+            <p>
+              에이스바이오팜은 의약품, 식품, 화장품 원료의 안정적인 공급과 빠른 소싱을
+              통해 고객사의 제품 개발과 생산을 연결합니다.
+            </p>
+            <p>
+              국내외 제조사와 고객사의 요구 조건을 정확히 이해하고, KDMF APIs,
+              Excipients, 식품 원료, 화장품 원료, 도매 원료까지 폭넓은 바이오소재
+              솔루션을 제공합니다.
+            </p>
+          </div>
+          <dl className="company-profile-table">
+            {COMPANY_PROFILE_ROWS.map(([label, value]) => (
+              <div className="company-profile-row" key={label}>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function HomeLanding({ onEnterManagement }) {
   const scrollRef = useRef(null)
   const videoRef = useRef(null)
+  const [activeHomePage, setActiveHomePage] = useState('main')
   const [heroCycleDuration, setHeroCycleDuration] = useState(10.4)
   const [heroAnimationKey, setHeroAnimationKey] = useState(0)
   const [solutionProgress, setSolutionProgress] = useState(0)
@@ -212,13 +263,19 @@ function HomeLanding({ onEnterManagement }) {
   const hoveredMenu = NAV_MENU_GROUPS.find((group) => group.title === hoveredNav)
 
   return (
-    <main className="home-shell" ref={scrollRef}>
+    <main className={`home-shell ${activeHomePage === 'company' ? 'company-mode' : ''}`} ref={scrollRef}>
       <header className="home-nav" onMouseLeave={() => setHoveredNav(null)}>
-        <button className="home-logo" onClick={() => scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <button
+          className="home-logo"
+          onClick={() => {
+            setActiveHomePage('main')
+            scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+        >
           <img src="/acebiopharm-ci.png" alt="Ace BioPharm" />
         </button>
         <nav className="home-nav-links" aria-label="주요 메뉴">
-          {SITE_NAV_ITEMS.map((item) => {
+          {SITE_NAV_ITEMS.map((item, navIndex) => {
             const menu = NAV_MENU_GROUPS.find((group) => group.title === item)
             return (
               <div
@@ -231,7 +288,17 @@ function HomeLanding({ onEnterManagement }) {
                   setHoveredNav(item)
                 }}
               >
-                <button className={hoveredNav === item ? 'active' : ''} onFocus={() => setHoveredNav(item)}>
+                <button
+                  className={hoveredNav === item ? 'active' : ''}
+                  onClick={() => {
+                    if (navIndex === 0) {
+                      setActiveHomePage('company')
+                      setHoveredNav(null)
+                      scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
+                    }
+                  }}
+                  onFocus={() => setHoveredNav(item)}
+                >
                   {item}
                 </button>
                 {hoveredNav === item && menu && (
@@ -322,6 +389,10 @@ function HomeLanding({ onEnterManagement }) {
         </div>
       )}
 
+      {activeHomePage === 'company' ? (
+        <CompanyIntroPage />
+      ) : (
+        <>
       <section
         className="home-hero"
         style={{
@@ -398,6 +469,8 @@ function HomeLanding({ onEnterManagement }) {
           ))}
         </div>
       </section>
+        </>
+      )}
 
       <footer className="home-footer">
         <div className="home-footer-menu">
