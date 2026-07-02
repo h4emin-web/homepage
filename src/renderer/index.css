@@ -57,8 +57,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 82px;
-  padding: 0 160px;
+  height: 64px;
+  padding: 0 clamp(72px, 8.8vw, 160px);
   color: #050505;
   background: #fff;
   border-bottom: 1px solid #f1f1f1;
@@ -76,14 +76,14 @@ body {
 .home-logo {
   display: flex;
   align-items: center;
-  width: 248px;
-  min-height: 56px;
+  width: 170px;
+  min-height: 44px;
   padding: 0;
 }
 
 .home-logo img {
   display: block;
-  width: 218px;
+  width: 156px;
   height: auto;
 }
 
@@ -91,7 +91,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: clamp(16px, 1.9vw, 32px);
+  gap: clamp(20px, 2.1vw, 38px);
   flex: 1;
   padding: 0 clamp(16px, 1.8vw, 34px);
 }
@@ -100,13 +100,13 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  height: 82px;
+  height: 64px;
 }
 
 .home-nav-item > button {
   position: relative;
-  height: 82px;
-  font-size: 19px;
+  height: 64px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0;
@@ -127,15 +127,15 @@ body {
   position: absolute;
   left: 50%;
   bottom: 0;
-  width: 88px;
-  height: 4px;
+  width: 70px;
+  height: 3px;
   background: #f05a00;
   transform: translateX(-50%);
 }
 
 .nav-mega-panel {
   position: absolute;
-  top: 82px;
+  top: 64px;
   left: 50%;
   z-index: 82;
   width: 190px;
@@ -148,7 +148,7 @@ body {
 
 .nav-mega-band {
   position: absolute;
-  top: 82px;
+  top: 64px;
   left: 0;
   right: 0;
   z-index: 81;
@@ -289,15 +289,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 28px;
-  width: 152px;
+  gap: 22px;
+  width: 124px;
   margin-right: 0;
 }
 
 .nav-icon {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border: 0;
   background: transparent;
   color: #050505;
@@ -318,8 +318,8 @@ body {
 .nav-icon.globe::before {
   left: 50%;
   top: 3px;
-  width: 10px;
-  height: 24px;
+  width: 9px;
+  height: 20px;
   border-left: 2px solid currentColor;
   border-right: 2px solid currentColor;
   border-radius: 50%;
@@ -329,7 +329,7 @@ body {
 .nav-icon.globe::after {
   left: 4px;
   right: 4px;
-  top: 14px;
+  top: 12px;
   border-top: 2px solid currentColor;
 }
 
@@ -344,8 +344,8 @@ body {
   position: absolute;
   top: 4px;
   left: 3px;
-  width: 19px;
-  height: 19px;
+  width: 17px;
+  height: 17px;
   border: 2px solid currentColor;
   border-radius: 50%;
 }
@@ -366,12 +366,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .nav-icon.menu span {
   display: block;
-  width: 27px;
+  width: 24px;
   height: 2px;
   background: currentColor;
 }
@@ -2895,25 +2895,25 @@ body {
 /* ===== Responsive landing polish ===== */
 @media (max-width: 1280px) {
   .home-nav {
-    padding: 0 clamp(28px, 4vw, 72px);
+    padding: 0 clamp(28px, 5vw, 72px);
   }
 
   .home-logo {
-    width: 220px;
+    width: 158px;
   }
 
   .home-logo img {
-    width: 198px;
+    width: 146px;
   }
 
   .home-nav-links {
     justify-content: center;
-    gap: clamp(18px, 2.4vw, 30px);
-    padding: 0 18px;
+    gap: clamp(16px, 2vw, 28px);
+    padding: 0 14px;
   }
 
   .home-nav-item > button {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .product-panel h3 {
@@ -2923,17 +2923,17 @@ body {
 
 @media (max-width: 1024px) {
   .home-nav {
-    height: 72px;
-    padding: 0 30px;
+    height: 60px;
+    padding: 0 24px;
   }
 
   .home-logo {
-    width: 196px;
-    min-height: 52px;
+    width: 146px;
+    min-height: 42px;
   }
 
   .home-logo img {
-    width: 178px;
+    width: 136px;
   }
 
   .home-nav-links {
@@ -2942,21 +2942,21 @@ body {
 
   .home-nav-item,
   .home-nav-item > button {
-    height: 72px;
+    height: 60px;
   }
 
   .home-nav-item > button {
-    font-size: 16px;
+    font-size: 13px;
   }
 
   .home-nav-tools {
-    gap: 20px;
-    width: 126px;
+    gap: 18px;
+    width: 112px;
   }
 
   .nav-mega-panel,
   .nav-mega-band {
-    top: 72px;
+    top: 60px;
   }
 
   .full-menu-overlay {
@@ -2987,8 +2987,8 @@ body {
   }
 
   .solution-copy {
-    top: 72px;
-    height: calc(100vh - 72px);
+    top: 60px;
+    height: calc(100vh - 60px);
   }
 
   .product-split {
@@ -3010,7 +3010,7 @@ body {
   }
 
   .company-page {
-    padding-top: 72px;
+    padding-top: 60px;
   }
 
   .company-page-header {
@@ -3024,7 +3024,7 @@ body {
   }
 
   .home-nav {
-    height: 66px;
+    height: 58px;
     padding: 0 18px;
   }
 
@@ -3035,7 +3035,7 @@ body {
   }
 
   .home-logo img {
-    width: clamp(142px, 41vw, 172px);
+    width: clamp(126px, 37vw, 148px);
   }
 
   .home-nav-links {
@@ -3048,8 +3048,8 @@ body {
   }
 
   .nav-icon {
-    width: 29px;
-    height: 29px;
+    width: 26px;
+    height: 26px;
   }
 
   .language-popover {
@@ -3164,8 +3164,8 @@ body {
   }
 
   .solution-copy {
-    top: 66px;
-    height: calc(100vh - 66px);
+    top: 58px;
+    height: calc(100vh - 58px);
   }
 
   .solution-copy h2 {
@@ -3231,7 +3231,7 @@ body {
   }
 
   .company-page {
-    padding: 66px 0 64px;
+    padding: 58px 0 64px;
   }
 
   .company-page-header {
@@ -3367,12 +3367,12 @@ body {
 
 @media (max-width: 480px) {
   .home-nav {
-    height: 62px;
+    height: 56px;
     padding: 0 13px;
   }
 
   .home-logo img {
-    width: clamp(130px, 44vw, 152px);
+    width: clamp(118px, 40vw, 136px);
   }
 
   .home-nav-tools {
