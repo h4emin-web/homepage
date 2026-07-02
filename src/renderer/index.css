@@ -924,19 +924,51 @@ body {
   line-height: 0.92;
   letter-spacing: -0.045em;
   font-weight: 900;
+  perspective: 900px;
   transform-origin: center;
   transform: scale(var(--headline-scale, 1));
+  filter:
+    drop-shadow(0 12px 18px rgba(7, 21, 29, 0.1))
+    drop-shadow(0 30px 44px rgba(7, 21, 29, 0.08));
   transition: transform 0.12s linear, opacity 0.12s linear;
   will-change: transform, opacity, filter;
 }
 
 .solution-copy h2 span {
+  position: relative;
   display: block;
   white-space: nowrap;
+  isolation: isolate;
 }
 
 .solution-copy h2 span:nth-child(1) {
-  color: #07151d;
+  color: transparent;
+  background:
+    linear-gradient(180deg, #0c2533 0%, #07151d 50%, #173647 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.solution-copy h2 span::before,
+.solution-copy h2 span::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.solution-copy h2 span::before {
+  color: rgba(0, 94, 184, 0.16);
+  transform: translate(0.045em, 0.065em) skewX(-3deg);
+  filter: blur(0.5px);
+}
+
+.solution-copy h2 span::after {
+  color: rgba(7, 21, 29, 0.09);
+  transform: translate(0.09em, 0.13em) scaleY(0.98);
+  filter: blur(2.6px);
 }
 
 .solution-kicker {

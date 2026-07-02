@@ -701,7 +701,7 @@ function HomeLanding({ onEnterManagement }) {
         <div className="solution-copy" aria-label="We have the solution you need">
           <p className="solution-kicker">What we do</p>
           <h2>
-            <span>We have the solution you need</span>
+            <span data-text="We have the solution you need">We have the solution you need</span>
           </h2>
         </div>
 
