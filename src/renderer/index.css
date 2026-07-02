@@ -921,7 +921,7 @@ body {
   max-width: none;
   width: max-content;
   font-size: clamp(42px, 6.35vw, 108px);
-  line-height: 0.92;
+  line-height: 1.04;
   letter-spacing: -0.045em;
   font-weight: 900;
   perspective: 900px;
@@ -937,6 +937,7 @@ body {
 .solution-copy h2 span {
   position: relative;
   display: block;
+  padding-bottom: 0.08em;
   white-space: nowrap;
   isolation: isolate;
 }
@@ -1042,7 +1043,7 @@ body {
 }
 
 .product-panel::after {
-  content: '';
+  content: none;
   position: absolute;
   left: clamp(24px, 4vw, 62px);
   top: clamp(24px, 4vw, 62px);
@@ -1053,7 +1054,7 @@ body {
 }
 
 .product-panel.green::after {
-  background: #2f7d5b;
+  background: transparent;
 }
 
 .product-panel p {
@@ -1062,7 +1063,7 @@ body {
   padding: 0;
   border-radius: 0;
   background: transparent;
-  color: #005eb8;
+  color: #111;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -1072,7 +1073,7 @@ body {
 
 .product-panel.green p {
   background: transparent;
-  color: #2f7d5b;
+  color: #111;
 }
 
 .product-panel h3 {
