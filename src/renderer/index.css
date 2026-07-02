@@ -58,7 +58,7 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 64px;
-  padding: 0 clamp(72px, 8.8vw, 160px);
+  padding: 0 clamp(144px, 17.6vw, 320px);
   color: #050505;
   background: #fff;
   border-bottom: 1px solid #f1f1f1;
@@ -2895,7 +2895,7 @@ body {
 /* ===== Responsive landing polish ===== */
 @media (max-width: 1280px) {
   .home-nav {
-    padding: 0 clamp(28px, 5vw, 72px);
+    padding: 0 clamp(56px, 10vw, 128px);
   }
 
   .home-logo {
@@ -3555,32 +3555,25 @@ body {
   }
 }
 
-/* Footer simplification */
-.home-footer-menu,
-.home-footer-copy p,
-.home-footer-badges {
-  display: none;
-}
+/* Mobile footer simplification */
+@media (max-width: 860px) {
+  .home-footer-menu,
+  .home-footer-badges {
+    display: none;
+  }
 
-.home-footer-info {
-  background: #050505;
-}
+  .home-footer-info {
+    background: #050505;
+  }
 
-.home-footer-info-inner {
-  justify-content: center;
-  min-height: 64px;
-  padding: 20px 28px;
-}
+  .home-footer-info-inner {
+    justify-content: center;
+  }
 
-.home-footer-copy {
-  align-items: center;
-  width: auto;
-}
-
-.privacy-link {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 14px;
+  .privacy-link {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 14px;
+  }
 }
 
 /* Mobile: show product panels immediately under the video */
