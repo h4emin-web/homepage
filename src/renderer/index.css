@@ -1775,28 +1775,42 @@ body {
   }
 
   .solution-section {
-    min-height: 190vh;
-    padding: 0 18px 72px;
+    min-height: 0;
+    padding: 64px 18px 72px;
   }
 
   .solution-copy {
-    top: 64px;
-    height: calc(100vh - 64px);
-    margin-bottom: 0;
+    position: static;
+    height: auto;
+    margin-bottom: 40px;
+    opacity: 1 !important;
   }
 
   .solution-copy h2 {
     max-width: none;
-    font-size: clamp(28px, 8.3vw, 36px);
-    line-height: 1;
+    width: 100%;
+    font-size: clamp(24px, 7.4vw, 36px);
+    line-height: 1.15;
+    transform: none !important;
+  }
+
+  .solution-copy h2 span {
+    white-space: normal;
+  }
+
+  .solution-kicker {
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   .product-split {
+    position: static;
     grid-template-columns: 1fr;
-    top: 82px;
     min-height: auto;
-    margin-top: -84vh;
+    margin: 0;
     gap: 18px;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .product-panel {
