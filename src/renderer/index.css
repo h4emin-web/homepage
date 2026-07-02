@@ -3618,7 +3618,27 @@ body {
   .home-footer-info-inner {
     align-items: center;
     gap: 0;
-    padding: 18px 20px;
+    min-height: auto;
+    padding: 24px 20px 28px;
+  }
+
+  .home-footer-copy {
+    align-items: center;
+    width: 100%;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .privacy-link {
+    margin-bottom: 8px;
+  }
+
+  .home-footer-copy p {
+    display: block;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 12px;
+    line-height: 1.55;
+    word-break: keep-all;
   }
 }
 
