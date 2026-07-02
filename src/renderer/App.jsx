@@ -114,7 +114,7 @@ const COMPANY_PROFILE_ROWS = [
   ['설립일', '2004년 11월 23일'],
   ['주요품목', '의약품·화장품·식품 원료, 건강기능식품'],
   ['사업종목', '원료의약품 등의 도매업, 건강기능식품 제조업'],
-  ['본점', '서울 서초구 방배로20길 5 서명빌딩 4,5,6층'],
+  ['본점', '서울 서초구 방배로20길 5 세명빌딩 4,5,6층'],
   ['물류센터', '경기 화성시 향남읍 발안공단로 6길 10'],
   ['연구소', '대전 유성구 유성대로1662 대전바이오벤처타운 512,513호'],
   ['정제공장', '경기도 평택시 청북읍 드림산단4로 140'],
@@ -738,7 +738,7 @@ function HomeLanding({ onEnterManagement }) {
           <div className="home-footer-info-inner">
             <div className="home-footer-copy">
               <button className="privacy-link">개인정보처리방침</button>
-              <p>[06664] 서울 서초구 방배로20길 5 서명빌딩</p>
+              <p>[06664] 서울 서초구 방배로20길 5 세명빌딩</p>
               <p>대표 : 민병규 / TEL : 02-579-1056 / FAX : 02-6008-3356 / E-mail : ace@acebiopharm.com</p>
               <p>Copyright © 2010 ABP company. All Rights Reserved.</p>
             </div>
