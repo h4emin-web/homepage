@@ -401,6 +401,7 @@ function HistoryPage() {
 function HomeLanding({ onEnterManagement }) {
   const scrollRef = useRef(null)
   const videoRef = useRef(null)
+  const productSplitRef = useRef(null)
   const [activeHomePage, setActiveHomePage] = useState('main')
   const [heroCycleDuration, setHeroCycleDuration] = useState(10.4)
   const [activeHeroLine, setActiveHeroLine] = useState(0)
@@ -470,7 +471,12 @@ function HomeLanding({ onEnterManagement }) {
       const distance = scroller.clientHeight * 0.92
       const progress = Math.max(0, Math.min(1, (scroller.scrollTop - start) / distance))
       setSolutionProgress(progress)
-      if (progress > 0.94) {
+
+      const panelRect = productSplitRef.current?.getBoundingClientRect()
+      const panelReached = panelRect ? panelRect.top <= scroller.clientHeight * 0.7 : false
+      const atBottom = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4
+
+      if (progress > 0.94 || panelReached || atBottom) {
         setSolutionLocked(true)
       }
     }
@@ -705,7 +711,7 @@ function HomeLanding({ onEnterManagement }) {
           </h2>
         </div>
 
-        <div className="product-split" aria-label="제품소개">
+        <div className="product-split" aria-label="제품소개" ref={productSplitRef}>
           {PRODUCT_GROUPS.map((group) => (
             <article className={`product-panel ${group.tone}`} key={group.title}>
               <p>{group.eyebrow}</p>
