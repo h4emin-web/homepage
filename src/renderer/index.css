@@ -1026,12 +1026,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 118px;
-  font-size: clamp(38px, 3.45vw, 58px);
+  min-height: 92px;
+  font-size: clamp(30px, 2.75vw, 46px);
   line-height: 1.08;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
   font-weight: 900;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .product-panel span {
@@ -1048,22 +1048,22 @@ body {
 .product-actions {
   display: flex;
   flex-direction: column;
-  width: min(300px, 100%);
-  min-height: 228px;
-  gap: 12px;
-  margin-top: 94px;
+  width: min(240px, 100%);
+  min-height: 170px;
+  gap: 9px;
+  margin-top: 66px;
 }
 
 .product-actions button {
   position: relative;
-  min-height: 68px;
-  padding: 0 56px 0 20px;
+  min-height: 52px;
+  padding: 0 46px 0 16px;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 0;
   background: rgba(255, 255, 255, 0.08);
   color: white;
   font-family: inherit;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 400;
   text-align: left;
   cursor: pointer;
@@ -1079,7 +1079,7 @@ body {
   position: absolute;
   right: 19px;
   top: 50%;
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 300;
   transform: translateY(-53%);
 }
@@ -3205,8 +3205,8 @@ body {
 
   .product-panel h3 {
     min-height: auto;
-    margin-bottom: 14px;
-    font-size: clamp(27px, 8.4vw, 36px);
+    margin-bottom: 12px;
+    font-size: clamp(23px, 7.1vw, 30px);
     line-height: 1.15;
   }
 
@@ -3218,16 +3218,16 @@ body {
   }
 
   .product-actions {
-    width: 100%;
+    width: min(72%, 238px);
     min-height: 0;
-    margin-top: 28px;
-    gap: 10px;
+    margin-top: 24px;
+    gap: 8px;
   }
 
   .product-actions button {
-    min-height: 52px;
-    padding-left: 16px;
-    font-size: 14px;
+    min-height: 44px;
+    padding: 0 38px 0 14px;
+    font-size: 13px;
   }
 
   .company-page {
@@ -3492,7 +3492,8 @@ body {
   }
 
   .product-actions button {
-    min-height: 48px;
+    min-height: 42px;
+    font-size: 12px;
   }
 
   .company-page {
