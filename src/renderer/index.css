@@ -897,9 +897,9 @@ body {
 
 .solution-copy {
   position: sticky;
-  top: 82px;
+  top: 64px;
   z-index: 1;
-  height: calc(100vh - 82px);
+  height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -909,6 +909,9 @@ body {
   text-align: center;
   pointer-events: none;
   opacity: var(--headline-opacity, 1);
+  filter: blur(var(--headline-blur, 0));
+  transform: translateY(var(--headline-lift, 0));
+  transition: filter 0.12s linear;
 }
 
 .solution-copy h2 {
@@ -923,8 +926,8 @@ body {
   font-weight: 900;
   transform-origin: center;
   transform: scale(var(--headline-scale, 1));
-  transition: transform 0.08s linear, opacity 0.08s linear;
-  will-change: transform, opacity;
+  transition: transform 0.12s linear, opacity 0.12s linear;
+  will-change: transform, opacity, filter;
 }
 
 .solution-copy h2 span {
@@ -943,7 +946,7 @@ body {
 
 .product-split {
   position: sticky;
-  top: 104px;
+  top: 86px;
   z-index: 3;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -953,9 +956,10 @@ body {
   margin: -88vh auto 0;
   align-items: center;
   opacity: var(--panel-progress, 0);
-  transform: translateY(calc((1 - var(--panel-progress, 0)) * 120px)) scale(calc(0.92 + var(--panel-progress, 0) * 0.08));
-  transition: opacity 0.08s linear, transform 0.08s linear;
-  will-change: opacity, transform;
+  filter: blur(calc((1 - var(--panel-progress, 0)) * 10px));
+  transform: translateY(calc((1 - var(--panel-progress, 0)) * 92px)) scale(calc(0.965 + var(--panel-progress, 0) * 0.035));
+  transition: opacity 0.12s linear, transform 0.12s linear, filter 0.12s linear;
+  will-change: opacity, transform, filter;
 }
 
 .product-panel {

@@ -467,10 +467,10 @@ function HomeLanding({ onEnterManagement }) {
 
     const handleScroll = () => {
       const start = scroller.clientHeight * 1.12
-      const distance = scroller.clientHeight * 0.72
+      const distance = scroller.clientHeight * 0.92
       const progress = Math.max(0, Math.min(1, (scroller.scrollTop - start) / distance))
       setSolutionProgress(progress)
-      if (progress > 0.72) {
+      if (progress > 0.94) {
         setSolutionLocked(true)
       }
     }
@@ -495,10 +495,16 @@ function HomeLanding({ onEnterManagement }) {
     scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const smoothStep = (value) => value * value * (3 - 2 * value)
+  const rangeProgress = (value, start, end) => smoothStep(Math.max(0, Math.min(1, (value - start) / (end - start))))
   const effectiveProgress = solutionLocked ? 1 : solutionProgress
-  const headlineScale = 1 + effectiveProgress * (scrollRef.current?.clientWidth < 600 ? 0.54 : 2.12)
-  const headlineOpacity = solutionLocked ? 0 : Math.max(0, 1 - Math.max(0, effectiveProgress - 0.48) / 0.32)
-  const panelProgress = solutionLocked ? 1 : Math.max(0, Math.min(1, (effectiveProgress - 0.42) / 0.42))
+  const headlineProgress = rangeProgress(effectiveProgress, 0.02, 0.76)
+  const headlineFadeProgress = rangeProgress(effectiveProgress, 0.56, 0.9)
+  const panelProgress = solutionLocked ? 1 : rangeProgress(effectiveProgress, 0.5, 0.94)
+  const headlineScale = 1 + headlineProgress * (scrollRef.current?.clientWidth < 600 ? 0.42 : 1.74)
+  const headlineOpacity = solutionLocked ? 0 : 1 - headlineFadeProgress
+  const headlineBlur = headlineFadeProgress * 6
+  const headlineLift = headlineFadeProgress * -34
   const hoveredMenu = NAV_MENU_GROUPS.find((group) => group.title === hoveredNav)
 
   return (
@@ -687,6 +693,8 @@ function HomeLanding({ onEnterManagement }) {
         style={{
           '--headline-scale': headlineScale,
           '--headline-opacity': headlineOpacity,
+          '--headline-blur': `${headlineBlur}px`,
+          '--headline-lift': `${headlineLift}px`,
           '--panel-progress': panelProgress,
         }}
       >
