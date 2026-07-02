@@ -3585,13 +3585,13 @@ body {
 /* Mobile: show product panels immediately under the video */
 @media (max-width: 860px) {
   .home-hero {
-    min-height: 76svh;
-    padding-bottom: 38px;
+    min-height: 86svh;
+    padding-bottom: 52px;
   }
 
   .solution-section {
     min-height: auto;
-    padding: 18px 14px 42px;
+    padding: 62px 14px 42px;
     overflow: visible;
   }
 
@@ -3624,12 +3624,12 @@ body {
 
 @media (max-width: 480px) {
   .home-hero {
-    min-height: 72svh;
-    padding-bottom: 30px;
+    min-height: 86svh;
+    padding-bottom: 48px;
   }
 
   .solution-section {
-    padding-top: 12px;
+    padding-top: 58px;
     padding-bottom: 34px;
   }
 
